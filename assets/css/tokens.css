@@ -1,0 +1,148 @@
+/* ==========================================================================
+   isprithul.me · design tokens
+   --------------------------------------------------------------------------
+   Every colour on the site comes from KiCad's built-in default themes
+   (kicad/common/settings/builtin_color_themes.h):
+     light theme = "Schematic"  → Eeschema default colours
+     dark theme  = "PCB"        → Pcbnew default colours
+   To restyle the site, change ONLY the semantic blocks ("--bg", "--ink"…).
+   Components never use a raw colour; they read the semantic tokens.
+   ========================================================================== */
+
+:root{
+  /* --- KiCad Eeschema (schematic editor) default theme ------------------ */
+  --kc-sch-bg:#F5F4EF;          /* LAYER_SCHEMATIC_BACKGROUND            */
+  --kc-sch-device:#840000;      /* LAYER_DEVICE: symbol outlines, pins    */
+  --kc-sch-device-bg:#FFFFC2;   /* LAYER_DEVICE_BACKGROUND: symbol fill   */
+  --kc-sch-wire:#009600;        /* LAYER_WIRE, LAYER_JUNCTION             */
+  --kc-sch-field:#006464;       /* reference, value, pin names            */
+  --kc-sch-pinnum:#A90000;      /* LAYER_PINNUM                           */
+  --kc-sch-notes:#0000C2;       /* LAYER_NOTES: text notes                */
+  --kc-sch-label:#0F0F0F;       /* LAYER_LOCLABEL, cursor                 */
+  --kc-sch-grid:#B5B5B5;        /* LAYER_SCHEMATIC_GRID                   */
+  --kc-sch-hover:#0000FF;       /* LAYER_HOVERED                          */
+  --kc-sch-bright:#FF00FF;      /* LAYER_BRIGHTENED: highlighted net      */
+  --kc-sch-select:rgba(77,179,255,.6); /* LAYER_SELECTION_SHADOWS (macOS) */
+
+  /* --- KiCad Pcbnew (PCB editor) default theme -------------------------- */
+  --kc-pcb-bg:#001023;          /* LAYER_PCB_BACKGROUND                   */
+  --kc-pcb-fcu:#C83434;         /* F.Cu                                   */
+  --kc-pcb-bcu:#4D7FC4;         /* B.Cu                                   */
+  --kc-pcb-fsilk:#F2EDA1;       /* F.Silkscreen                           */
+  --kc-pcb-bsilk:#E8B2A7;       /* B.Silkscreen                           */
+  --kc-pcb-edge:#D0D2CD;        /* Edge.Cuts                              */
+  --kc-pcb-crtyd:#FF26E2;       /* F.Courtyard                            */
+  --kc-pcb-cmts:#5994DC;        /* Cmts.User                              */
+  --kc-pcb-via:#E3B72E;         /* LAYER_VIA_HOLES                        */
+  --kc-pcb-ratsnest:#00F8FF;    /* LAYER_RATSNEST                         */
+  --kc-pcb-select:#04FF43;      /* LAYER_SELECT_OVERLAY                   */
+  --kc-pcb-sheet:#C872AB;       /* LAYER_DRAWINGSHEET                     */
+  --kc-pcb-grid:#848484;        /* LAYER_GRID                             */
+
+  /* --- type, spacing, shape (theme-independent) ------------------------- */
+  --font-display:"Bricolage Grotesque","Avenir Next","Segoe UI",system-ui,sans-serif;
+  --font-body:"Atkinson Hyperlegible","Segoe UI",system-ui,-apple-system,sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+  --fs-xs:.75rem; --fs-sm:.875rem; --fs-md:1rem; --fs-lg:1.125rem; --fs-xl:1.4rem;
+  --fs-2xl:clamp(1.75rem,3.2vw,2.4rem);
+  --fs-hero:clamp(2rem,3.5vw,2.9rem);
+  --maxw:1240px;
+  --gutter:max(16px, env(safe-area-inset-left, 0px));
+  --gutter-r:max(16px, env(safe-area-inset-right, 0px));
+  --sec-pad:clamp(52px,6.5vw,88px);
+  --radius:3px;
+  --header-h:60px;
+
+  /* --- semantic tokens: SCHEMATIC theme (default / light) --------------- */
+  --bg:var(--kc-sch-bg);
+  --bg-raised:#FBFBF7;                 /* a touch lighter than the canvas   */
+  --ink:var(--kc-sch-label);           /* body text                         */
+  --ink-soft:#4A4944;                  /* secondary text (neutral)          */
+  --heading:var(--kc-sch-device);      /* headings = symbol maroon          */
+  --sym:var(--kc-sch-device);          /* outlines, frames                  */
+  --sym-fill:var(--kc-sch-device-bg);  /* card captions = symbol fill       */
+  --wire:var(--kc-sch-wire);           /* links underline, wires            */
+  --field:var(--kc-sch-field);         /* meta labels, designators          */
+  --pinnum:var(--kc-sch-pinnum);
+  --note:var(--kc-sch-notes);
+  --grid:var(--kc-sch-grid);
+  --hover:var(--kc-sch-hover);
+  --bright:var(--kc-sch-bright);
+  --select:var(--kc-sch-select);
+  --sheet:var(--kc-sch-device);        /* drawing-sheet frame / title block */
+  --line:rgba(132,0,0,.22);            /* hairlines                         */
+  --btn-bg:var(--kc-sch-device);
+  --btn-ink:var(--kc-sch-device-bg);
+  --led:var(--kc-sch-wire);
+  --wire-w:1.6px;                      /* schematic wire weight             */
+  --wire-alt:var(--kc-sch-wire);       /* second net colour (same in SCH)   */
+  --jn:var(--kc-sch-wire);             /* junction dots                     */
+  --logo-body:#161616;
+  --logo-pin:#C9A227;
+  --backdrop:rgba(15,15,15,.55);
+
+  /* the oscilloscope screen is dark in both themes, like a real scope */
+  --scope-bg:#0B0C10; --scope-grid:#262938; --scope-ch1:#F2D04B; --scope-ch2:#4FD8E8; --scope-ink:#C9CCD6;
+}
+
+/* --- semantic tokens: PCB theme (dark) ----------------------------------- */
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:var(--kc-pcb-bg);
+    --bg-raised:#04182E;
+    --ink:var(--kc-pcb-edge);
+    --ink-soft:#A4ACB8;
+    --heading:var(--kc-pcb-fsilk);
+    --sym:var(--kc-pcb-fsilk);
+    --sym-fill:#071F3A;
+    --wire:var(--kc-pcb-fcu);
+    --field:var(--kc-pcb-cmts);
+    --pinnum:var(--kc-pcb-bsilk);
+    --note:var(--kc-pcb-cmts);
+    --grid:var(--kc-pcb-grid);
+    --hover:var(--kc-pcb-ratsnest);
+    --bright:var(--kc-pcb-crtyd);
+    --select:rgba(0,248,255,.35);
+    --sheet:var(--kc-pcb-sheet);
+    --line:rgba(242,237,161,.2);
+    --btn-bg:var(--kc-pcb-via);
+    --btn-ink:var(--kc-pcb-bg);
+    --led:var(--kc-pcb-select);
+    --wire-w:2.6px;                    /* wires become copper traces       */
+    --wire-alt:var(--kc-pcb-bcu);      /* I2C runs on B.Cu                 */
+    --jn:var(--kc-pcb-via);            /* junctions become vias            */
+    --logo-body:#0A0A0A;
+    --logo-pin:var(--kc-pcb-via);
+    --backdrop:rgba(0,6,14,.7);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:var(--kc-pcb-bg);
+  --bg-raised:#04182E;
+  --ink:var(--kc-pcb-edge);
+  --ink-soft:#A4ACB8;
+  --heading:var(--kc-pcb-fsilk);
+  --sym:var(--kc-pcb-fsilk);
+  --sym-fill:#071F3A;
+  --wire:var(--kc-pcb-fcu);
+  --field:var(--kc-pcb-cmts);
+  --pinnum:var(--kc-pcb-bsilk);
+  --note:var(--kc-pcb-cmts);
+  --grid:var(--kc-pcb-grid);
+  --hover:var(--kc-pcb-ratsnest);
+  --bright:var(--kc-pcb-crtyd);
+  --select:rgba(0,248,255,.35);
+  --sheet:var(--kc-pcb-sheet);
+  --line:rgba(242,237,161,.2);
+  --btn-bg:var(--kc-pcb-via);
+  --btn-ink:var(--kc-pcb-bg);
+  --led:var(--kc-pcb-select);
+  --wire-w:2.6px;
+  --wire-alt:var(--kc-pcb-bcu);
+  --jn:var(--kc-pcb-via);
+  --logo-body:#0A0A0A;
+  --logo-pin:var(--kc-pcb-via);
+  --backdrop:rgba(0,6,14,.7);
+  color-scheme:dark;
+}

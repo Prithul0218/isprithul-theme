@@ -1,0 +1,127 @@
+/* ==========================================================================
+   isprithul.me · schematic "probe" component
+   Drawn with KiCad conventions; colours come from tokens.css, so the sheet
+   follows the Schematic / PCB theme automatically.
+   ========================================================================== */
+
+/* osifont: the ISO 3098 lettering KiCad schematics are known for.
+   LGPL-3.0 with font exception (assets/fonts/osifont-LICENSE.txt). Subset: ASCII + a few symbols. */
+@font-face{font-family:"osifont";src:url("../fonts/osifont.woff2") format("woff2");font-display:swap}
+
+.bench{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;min-width:0}
+.sch-frame{position:relative;border:1px solid var(--line);border-radius:var(--radius);background:var(--bg);overflow:hidden}
+.sch{display:block;width:100%;height:auto;cursor:crosshair;user-select:none;-webkit-user-select:none}
+.sch text{font-family:"osifont",var(--font-mono)}
+
+/* drawing sheet */
+.s-frame{fill:none;stroke:var(--sheet);stroke-width:1}
+.s-zone{fill:var(--sheet);font-size:8px}
+.s-tb{fill:var(--sheet);font-size:8.5px}
+.s-tb-v{fill:var(--sheet);font-size:10px;font-weight:700}
+.s-grid{fill:var(--grid);opacity:.55}
+
+/* symbols */
+.s-body{fill:var(--sym-fill);stroke:var(--sym);stroke-width:1.4;transition:stroke .12s ease}
+.s-pin{fill:none;stroke:var(--sym);stroke-width:1.2}
+.s-pwr{fill:none;stroke:var(--sym);stroke-width:1.2;stroke-linejoin:round}
+.s-pinname{fill:var(--field);font-size:9px}
+.s-obar{fill:none;stroke:var(--field);stroke-width:.8}
+.s-pinnum{fill:var(--pinnum);font-size:7.5px}
+.s-ref{fill:var(--field);font-size:10.5px;font-weight:700}
+.s-val{fill:var(--field);font-size:9.5px}
+.s-pass{font-size:8.5px}
+.s-val-big{fill:var(--field);font-size:11.5px;font-weight:700;letter-spacing:.04em}
+.s-pwr-t{fill:var(--field);font-size:9px}
+.s-res{fill:none;stroke:var(--sym);stroke-width:1.2}
+.s-label{fill:var(--ink);font-size:9px;font-weight:700}
+.s-note{fill:var(--note);font-size:9.5px}
+
+/* nets: schematic wires in the light theme, copper traces in the PCB theme */
+.s-wire{fill:none;stroke:var(--wire);stroke-width:var(--wire-w);stroke-linecap:square;transition:stroke .12s ease,stroke-width .12s ease}
+.net--alt .s-wire{stroke:var(--wire-alt)}
+.s-jn{fill:var(--jn)}
+.s-hit{fill:none;stroke:transparent;stroke-width:16;pointer-events:stroke}
+.net.is-on .s-wire{stroke:var(--bright);stroke-width:calc(var(--wire-w) + .8px)}
+.net.is-on .s-jn{fill:var(--bright)}
+
+/* interactive parts + test points (hover highlights; click selects) */
+.part{cursor:pointer;outline:none}
+.part:hover .s-body,.part:focus-visible .s-body{stroke:var(--hover);stroke-width:2}
+.part.is-on .s-body{filter:drop-shadow(0 0 3px var(--select)) drop-shadow(0 0 7px var(--select))}
+.tp{cursor:pointer;outline:none}
+.tp-hit{fill:transparent}
+.tp-dot{fill:var(--bg);stroke:var(--sym);stroke-width:1.3}
+.tp:hover .tp-dot,.tp:focus-visible .tp-dot{stroke:var(--hover);stroke-width:2}
+.tp.is-on .tp-dot{fill:var(--bright);stroke:var(--bright)}
+.tp-l{fill:var(--field);font-size:8.5px;font-weight:700}
+
+/* D1 status LED: lit or dark, no blinking */
+.led-sym{fill:var(--sym-fill);stroke:var(--sym);stroke-width:1.3}
+.d1.is-lit .led-sym{fill:var(--led);stroke:var(--led);filter:drop-shadow(0 0 4px var(--led))}
+.rays{opacity:0;transition:opacity .2s}
+.d1.is-lit .rays{opacity:1}
+.ray{stroke:var(--led);stroke-width:1.2;fill:none}
+.ray-h{fill:var(--led)}
+
+/* crosshair (KiCad full-window cursor) + coordinates readout */
+.xh{stroke:var(--ink);stroke-width:.6;stroke-dasharray:2 2;opacity:0;pointer-events:none;transition:opacity .1s}
+.sch.is-hover .xh{opacity:.45}
+.sch-xy{position:absolute;left:10px;bottom:8px;pointer-events:none;font-family:var(--font-mono);font-size:.72rem;color:var(--field);
+  background:color-mix(in srgb,var(--bg) 85%,transparent);padding:1px 6px;border-radius:2px}
+
+/* phones: fit the sheet to the screen and keep only what reads at that size */
+@media (max-width:640px){
+  .sch{cursor:default}
+  .s-sheet,.s-pinnum,.s-val,.s-note,.s-pwr-t,.s-label,.s-pass{display:none}
+  .s-pinname{font-size:10px}
+  .s-ref{font-size:13px}
+  .s-val-big{font-size:15px}
+  .tp-l{font-size:12px}
+  .tp-dot{r:5px}
+  [data-part="u2"] .s-val-big{font-size:13px}
+}
+
+/* test-point chips */
+.tp-chips{display:flex;flex-wrap:wrap;gap:6px}
+.tp-chip{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:4px 10px;cursor:pointer;text-align:left;
+  border:1px solid var(--line);border-radius:var(--radius);background:var(--bg);color:var(--ink);
+  font-family:var(--font-mono);font-size:.75rem;line-height:1.25}
+.tp-chip b{color:var(--field)}
+.tp-chip:hover{border-color:var(--hover)}
+.tp-chip[aria-pressed="true"]{border-color:var(--bright);box-shadow:inset 0 0 0 1px var(--bright)}
+.tp-chip .dot{flex:none;width:8px;height:8px;border-radius:50%;border:1.3px solid var(--sym);background:var(--bg)}
+.tp-chip[aria-pressed="true"] .dot{background:var(--bright);border-color:var(--bright)}
+/* phones: one row, names only (the dot matches the test point on the sheet) */
+@media (max-width:640px){
+  .tp-chips{flex-wrap:nowrap;gap:6px}
+  .tp-chip{flex:1 1 auto;justify-content:center;padding:4px 8px;white-space:nowrap}
+  .tp-chip b{display:none}
+}
+@media (max-width:399px){.tp-chip .dot{display:none}}
+@media (max-width:359px){.tp-chips{gap:4px}.tp-chip{padding-inline:6px}.probe__seen button{width:48px}}
+
+/* instruments: probe card + scope. Side by side (fixed height, so nothing jumps) only where both fit */
+.instruments{display:grid;grid-template-columns:minmax(0,1fr);gap:10px}
+@media (min-width:768px) and (max-width:1000px),(min-width:1181px){
+  .instruments{grid-template-columns:minmax(0,1fr) minmax(0,1fr);height:150px}
+}
+.probe{border:1.5px solid var(--sym);border-radius:var(--radius);background:var(--sym-fill);padding:10px 12px;display:flex;flex-direction:column;gap:5px;min-width:0;overflow:hidden}
+.probe__name{font-family:var(--font-display);font-weight:800;font-size:1.15rem;color:var(--heading);line-height:1.1}
+.probe__line{font-size:.85rem;line-height:1.35;color:var(--ink-soft);display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
+.probe__row{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:auto}
+.probe__seen{display:flex;gap:6px}
+.probe__seen button{width:56px;height:44px;padding:0;border:1px solid var(--sym);border-radius:2px;overflow:hidden;cursor:pointer;background:var(--bg-raised)}
+.probe__seen button:hover,.probe__seen button:focus-visible{box-shadow:0 0 0 3px var(--select)}
+.probe__seen img{width:100%;height:100%;object-fit:cover}
+.probe__seen .photo-slot{padding:0;outline-offset:-3px}
+.probe__seen .photo-slot__icon{width:18px;height:18px}
+.scope{border-radius:var(--radius);background:var(--scope-bg);border:1px solid #000;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.scope__top{display:flex;justify-content:space-between;gap:8px;padding:5px 10px;font-family:var(--font-mono);font-size:.7rem;color:var(--scope-ink);border-bottom:1px solid var(--scope-grid)}
+.scope__trig{color:var(--scope-ch1);white-space:nowrap}
+.scope canvas{display:block;width:100%;height:96px;flex:none}
+.scope__dec{flex:1;padding:5px 10px;font-family:var(--font-mono);font-size:.72rem;line-height:1.4;color:var(--scope-ink);border-top:1px solid var(--scope-grid);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.scope__dec b{color:var(--scope-ch2);font-weight:600}
+.scope__dec i{color:var(--scope-ch1);font-style:normal}
+@media (pointer:coarse){.tp-chip{min-height:44px}}
+@media (max-width:520px){.scope canvas{height:76px}}

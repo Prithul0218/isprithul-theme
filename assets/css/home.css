@@ -1,0 +1,49 @@
+/* ==========================================================================
+   isprithul.me · homepage layout
+   ========================================================================== */
+
+/* hero: copy on the left, the schematic probe on the right */
+.hero{padding-block:clamp(24px,3.5vw,44px) clamp(36px,4.5vw,56px)}
+.hero + .sec{border-top:1px solid var(--line)}
+.hero__grid{display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);gap:clamp(24px,4vw,48px);align-items:center}
+@media (max-width:1180px){.hero__grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+@media (max-width:1000px){.hero__grid{grid-template-columns:minmax(0,1fr)}}
+.hero__copy{display:flex;flex-direction:column;gap:18px;min-width:0}
+.hero__title{font-size:var(--fs-hero)}
+.hero__sub{font-size:var(--fs-lg);color:var(--ink-soft);max-width:46ch}
+.hero__cta{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+@media (max-width:359px){.hero__cta .btn{padding-inline:12px}}
+
+/* "Is Prithul ___?": click the question for the next one */
+.kicker{display:grid;gap:6px;justify-items:start;min-height:3.7em;font-family:var(--font-mono);font-size:.82rem;letter-spacing:.03em}
+.kicker__q{padding:2px 0;border:0;background:none;cursor:pointer;text-align:left;
+  font:inherit;letter-spacing:inherit;font-weight:700;text-transform:uppercase;color:var(--ink)}
+.kicker__q:hover [data-kicker-q]{color:var(--hover)}
+.kicker__fixed{color:var(--field)}
+.kicker__caret{display:none;width:.55em;height:1.05em;background:var(--field);vertical-align:-2px;margin-left:3px;animation:caret 1s steps(1) infinite}
+.kicker.is-typing .kicker__caret{display:inline-block}
+.kicker__next{display:inline-block;margin-left:.7ch;color:var(--field);font-weight:400;transition:transform .3s ease}
+.kicker.is-typing .kicker__next{display:none}
+.kicker__q:hover .kicker__next{transform:rotate(120deg)}
+@keyframes caret{50%{opacity:0}}
+.kicker__a{color:var(--heading);text-decoration:underline;text-decoration-color:var(--wire);text-decoration-thickness:2px;
+  text-underline-offset:4px;transition:opacity .2s ease}
+.kicker.is-typing .kicker__a{opacity:0;pointer-events:none}
+.kicker__a:hover{text-decoration-color:var(--hover)}
+
+/* projects */
+#projects{padding-top:clamp(36px,4.5vw,56px)}
+.projects__tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+@media (max-width:640px){
+  /* one swipeable row of filters, edge to edge */
+  .projects__tools{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;
+    width:calc(100% + var(--gutter) + var(--gutter-r));margin-inline:calc(-1 * var(--gutter)) calc(-1 * var(--gutter-r));
+    padding-inline:var(--gutter) var(--gutter-r)}
+  .projects__tools::-webkit-scrollbar{display:none}
+  .projects__tools .filters{flex-wrap:nowrap}
+  .projects__tools .chip{flex:none}
+}
+
+/* services */
+.process{margin-top:36px}
+.process__title{font-family:var(--font-mono);font-weight:600;font-size:var(--fs-xs);line-height:1.4;letter-spacing:.08em;text-transform:uppercase;color:var(--field)}

@@ -1,0 +1,123 @@
+/* ==========================================================================
+   isprithul theme · WordPress pages: posts, pages, the blog list, 404,
+   comments, the admin bar. Same tokens as the homepage.
+   ========================================================================== */
+
+/* one reading width for every block of an article, so their left edges line up */
+:root{--read:44rem}
+
+/* short pages keep the footer at the bottom of the window */
+body.isp{display:flex;flex-direction:column;min-height:calc(100vh - var(--wp-admin--admin-bar--height, 0px))}
+body.isp > main{flex:1 0 auto}
+
+/* the admin bar (logged in) sits above the sticky header */
+.admin-bar .site-header{top:32px}
+html:has(body.admin-bar){scroll-padding-top:calc(var(--header-h) + 44px)}
+@media screen and (max-width:782px){
+  .admin-bar .site-header{top:46px}
+  html:has(body.admin-bar){scroll-padding-top:calc(var(--header-h) + 58px)}
+}
+@media screen and (max-width:600px){ .admin-bar .site-header{top:0} }
+
+.screen-reader-text{border:0;clip:rect(1px,1px,1px,1px);clip-path:inset(50%);height:1px;width:1px;margin:-1px;overflow:hidden;padding:0;position:absolute !important;word-wrap:normal !important}
+.screen-reader-text:focus{clip:auto !important;clip-path:none;height:auto;width:auto;left:16px;top:8px;z-index:200;padding:8px 12px;background:var(--bg);color:var(--ink);border:1px solid var(--sym)}
+
+/* ---------- page frame ---------- */
+.page-main{padding-block:clamp(36px,5vw,64px) clamp(52px,6.5vw,88px)}
+.page-head{max-width:var(--read);margin:0 auto 28px;display:grid;gap:10px}
+.page-head__meta{font-family:var(--font-mono);font-size:.8rem;color:var(--field)}
+.page-head__meta a{color:inherit}
+.page-head h1{font-size:var(--fs-2xl)}
+.page-head__lead{color:var(--ink-soft);font-size:var(--fs-lg)}
+.page-thumb{max-width:var(--read);margin:0 auto 28px}
+.page-thumb img{width:100%;border:1.5px solid var(--sym);border-radius:var(--radius)}
+/* pages built with Elementor keep their own layout, full width */
+.page-builder{min-height:40vh}
+
+/* ---------- article text ---------- */
+.prose{max-width:var(--read);margin-inline:auto;font-size:1.05rem;line-height:1.65}
+.prose::after{content:"";display:table;clear:both}
+.prose > * + *{margin-top:1.1em}
+.prose h2{font-size:clamp(1.4rem,2.2vw,1.75rem);margin-top:1.8em}
+.prose h3{font-size:1.25rem;margin-top:1.6em}
+.prose h4,.prose h5,.prose h6{font-size:1.05rem;margin-top:1.4em}
+.prose a{color:var(--heading);text-decoration:underline;text-decoration-color:var(--wire);text-decoration-thickness:2px;text-underline-offset:3px}
+.prose a:hover{text-decoration-color:var(--hover)}
+.prose ul,.prose ol{padding-left:1.4em}
+.prose li + li{margin-top:.35em}
+.prose blockquote{margin-inline:0;padding:2px 0 2px 18px;border-left:4px solid var(--wire);font-style:italic}
+.prose code,.prose kbd{font-family:var(--font-mono);font-size:.86em;background:var(--bg-raised);border:1px solid var(--line);border-radius:2px;padding:.1em .35em}
+.prose pre{font-family:var(--font-mono);font-size:.85rem;line-height:1.5;background:var(--scope-bg);color:var(--scope-ink);border-radius:var(--radius);padding:14px 16px;overflow:auto}
+.prose pre code{background:none;border:0;padding:0;color:inherit;font-size:inherit}
+.prose img,.prose video{max-width:100%;height:auto;border-radius:2px}
+.prose figure{margin-inline:0}
+.prose figcaption,.wp-caption-text,.wp-element-caption{font-family:var(--font-mono);font-size:.78rem;color:var(--field);margin-top:6px}
+.prose table{width:100%;border-collapse:collapse;font-size:.95rem}
+.prose th,.prose td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+.prose hr{border:0;border-top:1px solid var(--line);margin:2em 0}
+.prose iframe,.prose embed,.prose object{max-width:100%}
+.prose .wp-block-embed iframe{width:100%;height:auto;aspect-ratio:16/9}
+.alignleft{float:left;margin:.3em 1.4em 1em 0}
+.alignright{float:right;margin:.3em 0 1em 1.4em}
+.aligncenter{display:block;margin-inline:auto}
+.wp-caption{max-width:100%}
+.wp-block-image img{height:auto}
+.wp-block-button__link{display:inline-flex;align-items:center;min-height:44px;padding:10px 18px;border-radius:var(--radius);background:var(--btn-bg);color:var(--btn-ink) !important;
+  font-family:var(--font-display);font-weight:700;text-decoration:none !important}
+.wp-block-gallery,.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.gallery-item{margin:0}
+.gallery-item img{width:100%;height:auto}
+.sticky,.bypostauthor{display:block}
+
+/* ---------- blog list ---------- */
+.post-list{list-style:none;max-width:var(--read);margin-inline:auto;display:grid}
+.post-item{padding:24px 0;border-top:1px solid var(--line);display:grid;gap:8px}
+.post-item:first-child{border-top:0;padding-top:0}
+.post-item__meta{font-family:var(--font-mono);font-size:.78rem;color:var(--field)}
+.post-item__title{font-size:1.4rem;line-height:1.15}
+.post-item__title a{color:var(--heading);text-decoration:none}
+.post-item__title a:hover{color:var(--hover)}
+.post-item__excerpt{color:var(--ink-soft)}
+.post-item__thumb img{width:100%;aspect-ratio:16/9;object-fit:cover;border:1.5px solid var(--sym);border-radius:var(--radius)}
+.empty-note{max-width:var(--read);margin-inline:auto;color:var(--ink-soft)}
+
+.nav-links{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:36px;font-family:var(--font-mono);font-size:var(--fs-sm)}
+.nav-links a,.nav-links span{display:inline-flex;align-items:center;justify-content:center;min-height:40px;min-width:40px;padding:6px 12px;
+  border:1px solid var(--sym);border-radius:var(--radius);color:var(--heading);text-decoration:none}
+.nav-links .current{background:var(--sym);color:var(--bg)}
+.nav-links .dots{border-color:transparent}
+.post-nav{max-width:var(--read);margin:40px auto 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;font-family:var(--font-mono);font-size:var(--fs-sm)}
+.post-nav a{display:block;padding:12px 14px;border:1px solid var(--line);border-radius:var(--radius);color:var(--heading);text-decoration:none}
+.post-nav a:hover{border-color:var(--hover)}
+.post-nav a[rel="next"]{text-align:right;grid-column:2}
+.post-tags{max-width:var(--read);margin:28px auto 0;display:flex;flex-wrap:wrap;gap:6px;font-family:var(--font-mono);font-size:.78rem}
+.post-tags a{padding:3px 8px;border:1px solid var(--line);border-radius:2px;color:var(--field);text-decoration:none}
+
+/* ---------- search ---------- */
+.search-form{display:flex;gap:8px;max-width:var(--read);margin:0 auto 28px}
+.search-form input[type=search]{flex:1;min-height:44px;padding:10px 12px;border:1px solid var(--sym);border-radius:var(--radius);background:var(--bg-raised);color:var(--ink);font:inherit}
+
+/* ---------- 404 ---------- */
+.notfound{max-width:62ch;margin-inline:auto;display:grid;gap:16px}
+.notfound__code{font-family:var(--font-mono);font-size:.82rem;color:var(--field)}
+.notfound h1{font-size:var(--fs-2xl)}
+.notfound p{color:var(--ink-soft)}
+
+/* ---------- comments ---------- */
+.comments{max-width:var(--read);margin:48px auto 0;border-top:1.5px solid var(--sym);padding-top:28px;display:grid;gap:20px}
+.comments__title{font-size:1.35rem}
+.comment-list,.comment-list .children{list-style:none;padding:0}
+.comment-list .children{padding-left:22px;border-left:2px solid var(--line)}
+.comment-body{padding:14px 0;border-bottom:1px solid var(--line)}
+.comment-meta,.comment-metadata{font-family:var(--font-mono);font-size:.78rem;color:var(--field)}
+.comment-meta a{color:inherit}
+.comment-author img{border-radius:50%;float:left;margin-right:10px}
+.comment-content{margin-top:8px}
+.reply a{font-family:var(--font-mono);font-size:.78rem;color:var(--heading)}
+.comment-form{display:grid;gap:12px}
+.comment-form label{display:block;font-family:var(--font-mono);font-size:.75rem;color:var(--field);margin-bottom:4px}
+.comment-form input[type=text],.comment-form input[type=email],.comment-form input[type=url],.comment-form textarea{width:100%;min-height:44px;padding:10px 12px;
+  border:1px solid var(--sym);border-radius:var(--radius);background:var(--bg-raised);color:var(--ink);font:inherit}
+.comment-form .submit{min-height:44px;padding:10px 18px;border:0;border-radius:var(--radius);background:var(--btn-bg);color:var(--btn-ink);font-family:var(--font-display);font-weight:700;cursor:pointer}
+.comment-form-cookies-consent{display:flex;gap:8px;align-items:flex-start}
+.comment-form-cookies-consent label{font-family:var(--font-body);font-size:.9rem;color:var(--ink-soft)}

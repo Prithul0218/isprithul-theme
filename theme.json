@@ -1,0 +1,31 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.5/theme.json",
+	"version": 3,
+	"settings": {
+		"appearanceTools": false,
+		"color": {
+			"defaultPalette": false,
+			"defaultGradients": false,
+			"defaultDuotone": false,
+			"palette": [
+				{ "slug": "maroon", "name": "Symbol maroon", "color": "#840000" },
+				{ "slug": "wire", "name": "Wire green", "color": "#009600" },
+				{ "slug": "field", "name": "Field teal", "color": "#006464" },
+				{ "slug": "paper", "name": "Sheet paper", "color": "#F5F4EF" },
+				{ "slug": "ink", "name": "Ink", "color": "#0F0F0F" },
+				{ "slug": "board", "name": "PCB blue", "color": "#001023" },
+				{ "slug": "silk", "name": "Silkscreen", "color": "#F2EDA1" },
+				{ "slug": "copper", "name": "Copper", "color": "#C83434" }
+			]
+		},
+		"typography": {
+			"defaultFontSizes": false,
+			"fontFamilies": [
+				{ "slug": "display", "name": "Bricolage Grotesque", "fontFamily": "\"Bricolage Grotesque\", \"Avenir Next\", system-ui, sans-serif" },
+				{ "slug": "body", "name": "Atkinson Hyperlegible", "fontFamily": "\"Atkinson Hyperlegible\", system-ui, sans-serif" },
+				{ "slug": "mono", "name": "JetBrains Mono", "fontFamily": "\"JetBrains Mono\", ui-monospace, monospace" }
+			]
+		},
+		"layout": { "contentSize": "720px", "wideSize": "1100px" }
+	}
+}
