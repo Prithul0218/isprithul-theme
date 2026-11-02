@@ -8,8 +8,9 @@
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! isp_theme_ready() ) {
-	require get_template_directory() . '/index.php';
+if ( ! isp_home_view() ) {
+	// No isprithul core plugin (or Elementor's editor is open): show the front page's own content.
+	require get_template_directory() . ( is_page() ? '/page.php' : '/index.php' );
 	return;
 }
 

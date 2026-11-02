@@ -16,12 +16,14 @@ defined( 'ABSPATH' ) || exit;
 add_filter(
 	'template_include',
 	function ( $template ) {
-		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only check for Elementor's editor preview.
-		if ( is_front_page() && isp_theme_ready() && ! isset( $_GET['elementor-preview'] ) ) {
+		if ( isp_home_view() ) {
 			$front = locate_template( 'front-page.php' );
 			if ( $front ) {
 				return $front;
 			}
+		} elseif ( is_front_page() && is_page() && isp_builder_preview() && 'front-page.php' === basename( $template ) ) {
+			// Elementor's editor opened the old Home page: give it the normal page template.
+			return get_page_template();
 		}
 		return $template;
 	},
@@ -83,7 +85,7 @@ function isp_homepage_dequeue(): void {
 add_action(
 	'template_redirect',
 	function () {
-		if ( ! is_front_page() || ! isp_theme_ready() ) {
+		if ( ! isp_home_view() ) {
 			return;
 		}
 		foreach ( array( 'wp_head', 'wp_body_open', 'wp_enqueue_scripts', 'wp_footer', 'wp_print_footer_scripts', 'body_class' ) as $hook ) {

@@ -147,7 +147,7 @@ window.ISP = window.ISP || {};
       fetch(ISP.briefEndpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
         .then(function (r) {
           return r.json().catch(function () { return {}; }).then(function (j) {
-            if (!r.ok) { var err = new Error(String(r.status)); err.server = j && j.message; throw err; }
+            if (!r.ok || !j || j.ok !== true) { var err = new Error(String(r.status)); err.server = j && j.message; throw err; }
             return j;
           });
         })

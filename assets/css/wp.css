@@ -33,6 +33,13 @@ html:has(body.admin-bar){scroll-padding-top:calc(var(--header-h) + 44px)}
 .page-thumb img{width:100%;border:1.5px solid var(--sym);border-radius:var(--radius)}
 /* pages built with Elementor keep their own layout, full width */
 .page-builder{min-height:40vh}
+/* ...and the paragraph, list and image spacing the old theme (Astra) gave their text.
+   :where() keeps these weaker than any style set in Elementor. */
+.elementor :where(p,ul,ol,blockquote,figure){margin:0 0 1em}
+.elementor :where(p,ul,ol,blockquote,figure):last-child{margin-bottom:0}
+.elementor :where(ul,ol){padding-left:1.5em}
+.elementor :where(img){display:inline-block}
+.elementor :where(.elementor-widget-text-editor) :where(h1,h2,h3,h4,h5,h6){margin:1.2em 0 .5em}
 
 /* ---------- article text ---------- */
 .prose{max-width:var(--read);margin-inline:auto;font-size:1.05rem;line-height:1.65}

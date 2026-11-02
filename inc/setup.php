@@ -34,7 +34,7 @@ add_filter(
 	'body_class',
 	function ( $classes ) {
 		$classes[] = 'isp';
-		if ( is_front_page() ) {
+		if ( isp_home_view() ) {
 			$classes[] = 'isp-home';
 		}
 		return $classes;
@@ -45,7 +45,7 @@ add_action(
 	'admin_notices',
 	function () {
 		if ( ! function_exists( 'isp_content' ) && current_user_can( 'activate_plugins' ) ) {
-			echo '<div class="notice notice-warning"><p><strong>isprithul theme:</strong> please activate the <em>isprithul core</em> plugin. It holds the projects and the homepage texts; until then the homepage shows a simple list of posts.</p></div>';
+			echo '<div class="notice notice-warning"><p><strong>isprithul theme:</strong> please activate the <em>isprithul core</em> plugin. It holds the projects and the homepage texts; until then the homepage shows the content of the page set as the front page.</p></div>';
 		}
 	}
 );

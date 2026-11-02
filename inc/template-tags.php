@@ -12,6 +12,16 @@ function isp_theme_ready(): bool {
 	return function_exists( 'isp_content' );
 }
 
+/** True inside Elementor's editor preview, which needs the page's own content and assets. */
+function isp_builder_preview(): bool {
+	return isset( $_GET['elementor-preview'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only check.
+}
+
+/** True when this request shows the new homepage (plugin active, front page, not an editor preview). */
+function isp_home_view(): bool {
+	return is_front_page() && isp_theme_ready() && ! isp_builder_preview();
+}
+
 /** A homepage text by its place on the page, e.g. isp_c( 'hero.title' ). */
 function isp_c( string $path, $fallback = '' ) {
 	return isp_theme_ready() ? isp_get( $path, $fallback ) : $fallback;

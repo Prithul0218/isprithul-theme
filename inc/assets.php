@@ -12,7 +12,7 @@ add_action(
 	function () {
 		$uri  = get_template_directory_uri() . '/assets/';
 		$ver  = ISP_THEME_VERSION;
-		$home = is_front_page() && isp_theme_ready();
+		$home = isp_home_view();
 
 		wp_enqueue_style( 'isp-fonts', $uri . 'css/fonts.css', array(), $ver );
 		wp_enqueue_style( 'isp-tokens', $uri . 'css/tokens.css', array( 'isp-fonts' ), $ver );
@@ -51,7 +51,7 @@ add_action(
 		if ( ! isp_theme_ready() ) {
 			return;
 		}
-		$home = is_front_page();
+		$home = isp_home_view();
 		$data = array(
 			'content'       => isp_content_for_script( $home ),
 			'homeURL'       => home_url( '/' ),

@@ -20,7 +20,7 @@ $isp_field = function ( $id, $label, $input ) {
 		$input // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built from escaped parts below.
 	);
 };
-if ( is_front_page() ) :
+if ( isp_home_view() ) :
 	?>
 <dialog class="dlg" id="qv" aria-labelledby="qv-title">
 	<button type="button" class="dlg__close" data-close aria-label="Close">✕</button>

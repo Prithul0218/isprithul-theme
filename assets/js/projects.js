@@ -122,8 +122,12 @@ window.ISP = window.ISP || {};
   ISP.openProject = function (slug) {
     list = visible();
     idx = list.findIndex(function (p) { return p.id === slug; });
-    if (idx < 0) { list = P.slice(); idx = Math.max(0, list.findIndex(function (p) { return p.id === slug; })); }
-    if (!list.length) return;
+    if (idx < 0) { list = P.slice(); idx = list.findIndex(function (p) { return p.id === slug; }); }
+    if (idx < 0) {
+      var sec = document.getElementById('projects');
+      if (sec) sec.scrollIntoView({ behavior: ISP.reduceMotion ? 'auto' : 'smooth' });
+      return;
+    }
     render();
     if (!dlg.open) dlg.showModal();
   };

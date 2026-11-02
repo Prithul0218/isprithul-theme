@@ -6,7 +6,7 @@
  */
 
 defined( 'ABSPATH' ) || exit;
-$isp_home = is_front_page() && isp_theme_ready();
+$isp_home = isp_home_view();
 ?><!doctype html>
 <html <?php language_attributes(); ?>>
 <head>
