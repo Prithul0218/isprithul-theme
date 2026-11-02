@@ -7,6 +7,7 @@ window.ISP = window.ISP || {};
 
 (function () {
   var C = ISP.content, esc = ISP.esc;
+  if (!C) return;
   var root = document.documentElement;
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
   ISP.reduceMotion = reduce;

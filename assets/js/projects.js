@@ -5,6 +5,7 @@
 window.ISP = window.ISP || {};
 
 (function () {
+  if (!ISP.content || !ISP.content.projectsSection) return;
   var P = ISP.projects || [];
   var PS = ISP.content.projectsSection;
   var esc = ISP.esc;
@@ -122,6 +123,7 @@ window.ISP = window.ISP || {};
     list = visible();
     idx = list.findIndex(function (p) { return p.id === slug; });
     if (idx < 0) { list = P.slice(); idx = Math.max(0, list.findIndex(function (p) { return p.id === slug; })); }
+    if (!list.length) return;
     render();
     if (!dlg.open) dlg.showModal();
   };
@@ -158,7 +160,7 @@ window.ISP = window.ISP || {};
   var rnd = document.querySelector('[data-random]');
   if (rnd) rnd.addEventListener('click', function () {
     var v = visible();
-    ISP.openProject(v[Math.floor(Math.random() * v.length)].id);
+    if (v.length) ISP.openProject(v[Math.floor(Math.random() * v.length)].id);
   });
 
   /* deep link: open a project when the page loads with #p-<id> */

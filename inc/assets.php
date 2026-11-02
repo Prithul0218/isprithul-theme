@@ -37,6 +37,21 @@ add_action(
 			wp_enqueue_script( 'isp-projects', $uri . 'js/projects.js', array( 'isp-ui' ), $ver, $defer );
 			wp_enqueue_script( 'isp-schematic', $uri . 'js/schematic.js', array( 'isp-projects' ), $ver, $defer );
 		}
+	}
+);
+
+/*
+ * The page data for the scripts, as a JSON block (not a script that runs), so page
+ * optimizers that delay or combine inline scripts (LiteSpeed, Cloudflare) can't run
+ * it in the wrong order. core.js reads it.
+ */
+add_action(
+	'wp_footer',
+	function () {
+		if ( ! isp_theme_ready() ) {
+			return;
+		}
+		$home = is_front_page();
 		$data = array(
 			'content'       => isp_content_for_script( $home ),
 			'homeURL'       => home_url( '/' ),
@@ -44,12 +59,15 @@ add_action(
 			'legalURL'      => isp_legal_url(),
 			'briefEndpoint' => rest_url( 'isprithul/v1/brief' ),
 		);
-		wp_add_inline_script(
-			'isp-core',
-			'window.ISP=window.ISP||{};Object.assign(ISP,' . wp_json_encode( $data, JSON_HEX_TAG | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) . ');',
-			'before'
+		wp_print_inline_script_tag(
+			(string) wp_json_encode( $data, JSON_HEX_TAG | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ),
+			array(
+				'type' => 'application/json',
+				'id'   => 'isp-data',
+			)
 		);
-	}
+	},
+	5
 );
 
 /* Fonts the first screen needs, before the stylesheets ask for them. */

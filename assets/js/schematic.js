@@ -8,7 +8,7 @@ window.ISP = window.ISP || {};
 
 (function () {
   var svg = document.querySelector('[data-sch]');
-  if (!svg) return;
+  if (!svg || !ISP.content || !ISP.services) return;
   var esc = ISP.esc;
   var probe = document.querySelector('[data-probe]');
   var chips = document.querySelector('[data-tp-chips]');

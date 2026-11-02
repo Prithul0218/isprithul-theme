@@ -1,12 +1,19 @@
 /* ==========================================================================
    isprithul.me · core helpers shared by every script
-   Reads assets/js/content.js. Nothing here needs editing to change words
-   or photos.
+   Reads the page data the theme prints (Site content and Projects in the
+   WordPress admin). Nothing here needs editing to change words or photos.
    ========================================================================== */
 window.ISP = window.ISP || {};
 
+/* page data from the theme: <script type="application/json" id="isp-data"> */
+(function () {
+  var el = document.getElementById('isp-data');
+  if (el && !ISP.content) { try { Object.assign(ISP, JSON.parse(el.textContent)); } catch (e) {} }
+})();
+
 (function () {
   var C = ISP.content;
+  if (!C) return;
 
   ISP.esc = function (s) {
     return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) {
