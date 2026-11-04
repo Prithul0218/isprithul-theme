@@ -22,6 +22,24 @@ function isp_home_view(): bool {
 	return is_front_page() && isp_theme_ready() && ! isp_builder_preview();
 }
 
+/**
+ * True when nothing on this page was built with Elementor: the homepage, and any page,
+ * post, archive or 404 whose content is ordinary blocks (the Legal page, for example).
+ * Those pages then skip the page-builder files entirely.
+ */
+function isp_lean_view(): bool {
+	if ( isp_home_view() ) {
+		return true;
+	}
+	if ( is_admin() || isp_builder_preview() || is_front_page() ) {
+		return false;
+	}
+	if ( is_singular() ) {
+		return 'builder' !== get_post_meta( get_queried_object_id(), '_elementor_edit_mode', true );
+	}
+	return is_404() || is_search() || is_archive() || is_home();
+}
+
 /** A homepage text by its place on the page, e.g. isp_c( 'hero.title' ). */
 function isp_c( string $path, $fallback = '' ) {
 	return isp_theme_ready() ? isp_get( $path, $fallback ) : $fallback;

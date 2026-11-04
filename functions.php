@@ -11,7 +11,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'ISP_THEME_VERSION', '1.1.0' );
+define( 'ISP_THEME_VERSION', '1.1.1' );
 
 require get_template_directory() . '/inc/setup.php';
 require get_template_directory() . '/inc/template-tags.php';

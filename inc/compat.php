@@ -6,7 +6,8 @@
  *   the old Home page was built with Elementor. Other Elementor pages keep working.
  * - Ultimate Addons for Elementor: its header/footer stay out (see setup.php), and on
  *   the homepage its scroll-to-top button and reading-progress bar are removed.
- * - The homepage loads none of the page-builder styles and scripts it doesn't use.
+ * - The homepage, and every page not built with Elementor (Legal, 404, posts), loads
+ *   none of the page-builder styles and scripts.
  *
  * @package isprithul
  */
@@ -55,9 +56,13 @@ function isp_remove_callbacks( string $hook, string $pattern ): void {
 	}
 }
 
-/** Styles and scripts the homepage never uses (page builders, add-ons, block styles). */
+/** Styles and scripts a lean page never uses (page builders and add-ons; on the homepage also block styles and jQuery). */
 function isp_homepage_skips( string $handle ): bool {
-	$prefixes = array( 'elementor', 'e-', 'eael', 'pa-', 'premium', 'hfe', 'uael', 'swiper', 'font-awesome', 'contact-form-7', 'wpcf7', 'wp-block-library', 'global-styles', 'classic-theme-styles', 'jquery', 'google-fonts', 'aioseo/css/src/vue/standalone/blocks' );
+	$prefixes = array( 'elementor', 'e-', 'eael', 'pa-', 'premium', 'hfe', 'uael', 'swiper', 'font-awesome', 'contact-form-7', 'wpcf7', 'google-fonts' );
+	if ( isp_home_view() ) {
+		// Pages with block content (Legal) still need the block styles.
+		array_push( $prefixes, 'wp-block-library', 'global-styles', 'classic-theme-styles', 'jquery' );
+	}
 	foreach ( $prefixes as $prefix ) {
 		if ( str_starts_with( $handle, $prefix ) ) {
 			return true;
@@ -85,7 +90,7 @@ function isp_homepage_dequeue(): void {
 add_action(
 	'template_redirect',
 	function () {
-		if ( ! isp_home_view() ) {
+		if ( ! isp_lean_view() ) {
 			return;
 		}
 		foreach ( array( 'wp_head', 'wp_body_open', 'wp_enqueue_scripts', 'wp_footer', 'wp_print_footer_scripts', 'body_class' ) as $hook ) {
