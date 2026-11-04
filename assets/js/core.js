@@ -14,6 +14,10 @@ window.ISP = window.ISP || {};
 (function () {
   var C = ISP.content;
   if (!C) return;
+  /* the contact email arrives reversed and base64-encoded (kept from address harvesters) */
+  if (C.site && C.site.emailEnc && !C.site.email) {
+    try { C.site.email = atob(C.site.emailEnc).split('').reverse().join(''); } catch (e) {}
+  }
 
   ISP.esc = function (s) {
     return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) {

@@ -59,7 +59,12 @@ window.ISP = window.ISP || {};
   };
 
   /* ---------- copy email ---------- */
-  document.querySelectorAll('[data-email]').forEach(function (el) { el.textContent = C.site.email; el.setAttribute('data-src', 'site.email'); });
+  /* [data-email] (contact block, [isp_email] in pages): show the real address and make it a link */
+  document.querySelectorAll('[data-email]').forEach(function (el) {
+    if (!C.site.email) return;
+    el.textContent = C.site.email;
+    if (el.tagName === 'A') el.setAttribute('href', 'mailto:' + C.site.email);
+  });
   document.addEventListener('click', function (e) {
     var b = e.target.closest('[data-copy-email]');
     if (!b) return;

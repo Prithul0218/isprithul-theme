@@ -32,6 +32,7 @@ if ( isp_home_view() ) :
 			<p class="qv__summary" data-qv-summary></p>
 			<figure class="qv__quote" data-qv-quote hidden><blockquote></blockquote><figcaption></figcaption></figure>
 			<dl class="qv__facts" data-qv-facts></dl>
+			<p class="qv__links" data-qv-links hidden></p>
 			<div class="qv__actions"><button type="button" class="btn btn--primary" data-open-brief data-qv-similar><?php echo esc_html( $isp_ps['similarButton'] ); ?></button></div>
 		</div>
 	</div>

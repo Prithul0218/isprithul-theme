@@ -106,6 +106,14 @@ window.ISP = window.ISP || {};
     dlg.querySelector('[data-qv-facts]').innerHTML = (p.facts || []).map(function (f, n) {
       return '<div class="qv__fact"><dt' + src(base + '.facts.' + n) + '>' + esc(f[0]) + '</dt><dd' + src(base + '.facts.' + n) + '>' + esc(f[1]) + '</dd></div>';
     }).join('');
+    var linksEl = dlg.querySelector('[data-qv-links]');
+    if (linksEl) {
+      var links = p.links || [];
+      linksEl.innerHTML = links.map(function (l) {
+        return '<a href="' + esc(l.href) + '" target="_blank" rel="noopener">' + esc(l.label) + ' <span aria-hidden="true">↗</span></a>';
+      }).join('');
+      linksEl.hidden = !links.length;
+    }
     dlg.querySelector('[data-qv-count]').textContent = (idx + 1) + ' / ' + list.length;
     var svc = ISP.services[p.services[0]];
     dlg.querySelector('[data-qv-similar]').dataset.preset = svc ? svc.name : '';

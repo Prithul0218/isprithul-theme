@@ -19,7 +19,7 @@ $isp_status = isp_available() ? isp_c( 'site.statusOn' ) : isp_c( 'site.statusOf
 				<div class="hero__cta"><button type="button" class="btn btn--primary" data-open-brief><?php echo esc_html( $isp_ct['button'] ); ?></button></div>
 			</div>
 			<div class="tblock__cells">
-				<div class="tblock__cell"><span class="tblock__k"><?php echo esc_html( $isp_ct['emailLabel'] ); ?></span><span class="tblock__v"><a class="link" href="mailto:<?php echo esc_attr( isp_c( 'site.email' ) ); ?>" data-email><?php echo esc_html( isp_c( 'site.email' ) ); ?></a><button type="button" class="copy-btn" data-copy-email><?php echo esc_html( $isp_ct['copy'] ); ?></button></span></div>
+				<div class="tblock__cell"><span class="tblock__k"><?php echo esc_html( $isp_ct['emailLabel'] ); ?></span><span class="tblock__v"><?php echo function_exists( 'isp_email_html' ) ? isp_email_html() : '<span data-email>' . esc_html( str_replace( '@', ' [at] ', (string) isp_c( 'site.email' ) ) ) . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped inside. ?><button type="button" class="copy-btn" data-copy-email><?php echo esc_html( $isp_ct['copy'] ); ?></button></span></div>
 				<div class="tblock__cell"><span class="tblock__k"><?php echo esc_html( $isp_ct['basedLabel'] ); ?></span><span class="tblock__v"><?php echo esc_html( $isp_ct['based'] ); ?></span></div>
 				<div class="tblock__cell"><span class="tblock__k"><?php echo esc_html( $isp_ct['replyLabel'] ); ?></span><span class="tblock__v"><?php echo esc_html( $isp_ct['reply'] ); ?></span></div>
 			</div>

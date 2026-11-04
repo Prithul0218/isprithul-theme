@@ -249,6 +249,9 @@ html:has(dialog[open]){overflow:hidden}
 .qv__fact{display:contents}
 .qv__facts dt{color:var(--field)}
 .qv__facts dd{margin:0;color:var(--ink)}
+.qv__links{display:flex;flex-wrap:wrap;gap:6px 18px;margin:0;font-family:var(--font-mono);font-size:.8rem}
+.qv__links a{color:var(--heading);text-decoration:underline;text-decoration-color:var(--wire);text-decoration-thickness:2px;text-underline-offset:4px;padding-block:4px}
+.qv__links a:hover{text-decoration-color:var(--hover)}
 .qv__actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:auto;padding-top:6px}
 .qv__bar{display:flex;align-items:center;justify-content:space-between;gap:10px;border-top:1.5px solid var(--sym);padding:8px 10px;background:var(--bg);flex:none}
 .qv__bar button{min-height:40px;padding:0 14px;border:1px solid var(--sym);border-radius:var(--radius);background:transparent;color:var(--heading);
